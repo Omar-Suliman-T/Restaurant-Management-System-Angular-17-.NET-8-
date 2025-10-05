@@ -1,0 +1,98 @@
+<div class="meals-container">
+  <div class="header-section">
+    <h2 class="page-title">Our Special Meals</h2>
+    <p class="page-subtitle">Carefully curated meal combinations for a complete dining experience</p>
+  </div>
+
+  <div class="meals-grid">
+    <div *ngFor="let meal of meals" class="meal-card" [@cardAnimation]>
+      <div class="meal-image-container">
+        <img [src]="meal.image || 'assets/placeholder-meal.jpg'" [alt]="meal.name" class="meal-image" />
+        <div class="meal-overlay">
+          <button
+            class="add-cart-btn"
+            [ngClass]="{'added': meal.id === theButtonId}"
+            [disabled]="meal.id === theButtonId"
+            (click)="addItemToCart(meal)">
+            {{meal.id === theButtonId ? 'Added!' : 'Add to Cart'}}
+            <i class="fas" [ngClass]="{'fa-check': meal.id === theButtonId, 'fa-plus': meal.id !== theButtonId}"></i>
+          </button>
+
+          <button class="details-btn" (click)="GetMealDetials(meal.id)">
+            <i class="fas fa-info-circle"></i>
+            Details
+          </button>
+        </div>
+      </div>
+
+      <div class="meal-content">
+        <h3 class="meal-name">{{ meal.name }}</h3>
+
+        <p class="meal-description">{{ meal.description | slice:0:100 }}</p><span *ngIf="meal.description.length>100">...Read more</span>
+
+        <div class="meal-footer">
+          <span class="meal-price">{{ meal.price | currency:'USD' }}</span>
+
+          <div class="meal-actions">
+            <button
+              class="quick-add-btn"
+              [ngClass]="{'added': meal.id === theButtonId}"
+              [disabled]="meal.id === theButtonId"
+              (click)="addItemToCart(meal)">
+              <i class="fas" [ngClass]="{'fa-check': meal.id === theButtonId, 'fa-cart-plus': meal.id !== theButtonId}"></i>
+            </button>
+
+            <button class="details-sm-btn" (click)="GetMealDetials(meal.id)">
+              <i class="fas fa-info"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="view-cart-container">
+    <button class="view-cart-btn" routerLink="/CustomerNavigation/MyCart">
+      <i class="fas fa-shopping-cart"></i>
+      View My Cart
+      <span class="cart-badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+    </button>
+  </div>
+
+  <div class="modal-overlay" *ngIf="showDetials" [@modalAnimation]>
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Meal Details</h3>
+        <button class="close-btn" (click)="showDetials = false">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="modal-content">
+        <div class="meal-items-list">
+          <div *ngFor="let item of mealDetials" class="meal-item" [@itemAnimation]>
+            <div class="item-image">
+              <img [src]="item.image || 'assets/placeholder-food.jpg'" [alt]="item.itemName" />
+            </div>
+
+            <div class="item-info">
+              <h4>{{ item.itemName }}</h4>
+              <p>Quantity: {{ item.quantity }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="mealDetials.length === 0" class="empty-state">
+          <i class="fas fa-info-circle"></i>
+          <p>No items found in this meal</p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="done-btn" (click)="showDetials = false">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

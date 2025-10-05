@@ -1,0 +1,85 @@
+/* item.component.css */
+.container {
+  max-width: 98%; /* More constrained width */
+  width: fit-content; /* Fits content without forcing full width */
+  margin: 1.5rem auto;
+  padding: 1rem;
+}
+
+/* Table sizing adjustments */
+.table-responsive {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.category-table {
+  table-layout: auto; /* Allows columns to shrink to content */
+}
+
+/* Perfect button sizing */
+.actions-cell {
+  height: 100%; /* Fill entire row height */
+  display: flex;
+  gap: 6px;
+  align-items: center; /* Vertical center */
+  padding: 0.5rem 0; /* Vertical padding only */
+}
+
+.btn {
+  padding: 0.35rem 0.7rem; /* More compact */
+    height: 60px; /* Fixed height */
+  box-sizing: border-box; /* Include padding in height */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Column width optimizations */
+.category-table td,
+.category-table th {
+  padding: 0.75rem 0.5rem; /* More compact padding */
+  max-width: 200px; /* Prevent columns from growing too wide */
+}
+
+/* Specific column adjustments */
+.category-table td:nth-child(4), /* Description */
+.category-table td:nth-child(6) { /* Ingredients */
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .container {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .category-table td,
+  .category-table th {
+    padding: 0.5rem 0.3rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Hide columns on mobile */
+  .category-table td:nth-child(4),
+  .category-table th:nth-child(4),
+  .category-table td:nth-child(6),
+  .category-table th:nth-child(6),
+  .category-table td:nth-child(7),
+  .category-table th:nth-child(7),
+  .category-table td:nth-child(10),
+  .category-table th:nth-child(10) {
+    display: none;
+  }
+
+  .btn {
+    padding: 0.25rem 0.5rem;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+}

@@ -1,0 +1,129 @@
+<div class="form-container">
+  <div class="form-card">
+    <h2 class="form-title">{{mealId === 0 ? 'Add New Meal' : 'Update Meal'}}</h2>
+
+    <form (ngSubmit)="UpdateMeal()" #userForm="ngForm" class="form">
+      <div class="form-grid">
+        <!-- Name Field -->
+        <div class="form-group">
+          <label for="Name" class="form-label">Name</label>
+          <input type="text" id="Name" class="form-control"
+                 [(ngModel)]="meal.name" name="Name" required
+                 [class.is-invalid]="isRequaired && !meal.name && userForm.submitted">
+          <div *ngIf="isRequaired && !meal.name && userForm.submitted" class="invalid-feedback">
+            Name is required
+          </div>
+        </div>
+
+        <!-- Description Field -->
+        <div class="form-group">
+          <label for="description" class="form-label">Description</label>
+          <input type="text" id="description" class="form-control"
+                 [(ngModel)]="meal.description" name="description" required
+                 [class.is-invalid]="isRequaired && !meal.description && userForm.submitted">
+          <div *ngIf="isRequaired && !meal.description && userForm.submitted" class="invalid-feedback">
+            Description is required
+          </div>
+        </div>
+
+        <!-- Category Field -->
+        <div class="form-group">
+          <label for="category" class="form-label">Category</label>
+          <select id="category" class="form-select"
+                  [(ngModel)]="meal.category" name="category" required
+                  [class.is-invalid]="isRequaired && !meal.category && userForm.submitted">
+            <option [ngValue]="null" disabled>Select A Category</option>
+            <option *ngFor="let category of categories" [ngValue]="category.name">{{category.name}}</option>
+          </select>
+          <div *ngIf="isRequaired && !meal.category && userForm.submitted" class="invalid-feedback">
+            Category is required
+          </div>
+        </div>
+
+        <!-- Image Field -->
+        <div class="form-group">
+          <label for="image" class="form-label">Image</label>
+          <input type="file" class="form-control" id="image"
+                 (change)="onImageSelected($event)"
+                 accept="image/*">
+          <div *ngIf="imagePreview" class="image-preview">
+            <img [src]="imagePreview" alt="Preview">
+            <button type="button" (click)="removeImage()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Stock Field -->
+        <div class="form-group">
+          <label for="stock" class="form-label">Stock</label>
+          <input type="number" id="stock" class="form-control"
+                 [(ngModel)]="meal.stock" name="stock" min="0" step="1" required
+                 [class.is-invalid]="isRequaired && !meal.stock && userForm.submitted">
+          <div *ngIf="isRequaired && !meal.stock && userForm.submitted" class="invalid-feedback">
+            Stock is required
+          </div>
+        </div>
+
+        <!-- Status Field -->
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <div class="status-options">
+            <div class="form-check">
+              <input type="radio" id="active" name="status" class="form-check-input"
+                     [(ngModel)]="meal.isActive" [value]="true" required>
+              <label for="active" class="form-check-label">Active</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" id="notActive" name="status" class="form-check-input"
+                     [(ngModel)]="meal.isActive" [value]="false">
+              <label for="notActive" class="form-check-label">Inactive</label>
+            </div>
+          </div>
+          <div *ngIf="isRequaired && !meal.isActive && userForm.submitted" class="invalid-feedback d-block">
+            Please select a status
+          </div>
+        </div>
+
+        <!-- Meal Items Section -->
+        <div class="form-group full-width" *ngIf="showForm">
+          <h5 class="section-title">Meal Items</h5>
+          <div *ngIf="nothinInside" class="alert alert-warning">
+            You need to select at least one item with quantity
+          </div>
+
+          <div class="meal-items-container">
+            <div *ngFor="let index of [0,1,2,3,4]" class="meal-item-row">
+              <div class="meal-item" *ngIf="meal.details[index]">
+                <div class="item-select">
+                  <label class="form-label">Item {{ index + 1 }}</label>
+                  <select class="form-select" [(ngModel)]="meal.details[index].itemID" name="item{{ index }}">
+                    <option [ngValue]="null">-- Select Item --</option>
+                    <option *ngFor="let item of items" [ngValue]="item.id">{{ item.name }}</option>
+                  </select>
+                </div>
+
+                <div class="item-quantity">
+                  <label class="form-label">Quantity</label>
+                  <input type="number" min="1" step="1" class="form-control"
+                         [(ngModel)]="meal.details[index].quantity" name="qty{{ index }}"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="router.navigate(['/AdminNavigation/Meals'])">
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-primary">
+          {{mealId === 0 ? 'Add Meal' : 'Update Meal'}}
+          <i class="fas fa-save ms-2"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

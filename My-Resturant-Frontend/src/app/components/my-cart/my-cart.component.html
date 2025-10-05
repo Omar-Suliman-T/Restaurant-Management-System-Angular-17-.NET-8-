@@ -1,0 +1,185 @@
+<div class="cart-container">
+  <div class="header-section">
+    <h2 class="page-title">Your Shopping Cart</h2>
+    <p class="page-subtitle">Review your items and complete your order</p>
+  </div>
+
+  <div class="cart-content" *ngIf="cartMeals.length > 0 || cartItems.length > 0; else emptyCart">
+    <div class="cart-items-section">
+      <div class="cart-items-header">
+        <h3>Order Items ({{getTotalItems()}})</h3>
+        <button class="clear-cart-btn" (click)="clearCart()">
+          <i class="fas fa-trash"></i> Clear Cart
+        </button>
+      </div>
+
+      <div class="items-list">
+        <div *ngFor="let meal of cartMeals" class="cart-item" [@itemAnimation]>
+          <div class="item-image">
+            <img [src]="meal.image || 'assets/placeholder-food.jpg'" [alt]="meal.name" />
+          </div>
+
+          <div class="item-details">
+            <h4 class="item-name">{{ meal.name }}</h4>
+            <p class="item-price">{{ meal.price | currency }}</p>
+          </div>
+
+          <div class="quantity-controls">
+            <button class="quantity-btn" (click)="decreaseMealQuantity(meal)">
+              <i class="fas fa-minus"></i>
+            </button>
+            <span class="quantity">{{ meal.quantity }}</span>
+            <button class="quantity-btn" (click)="increaseMealQuantity(meal)">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+
+          <div class="item-total">
+            {{ (meal.price * meal.quantity) | currency }}
+          </div>
+
+          <button class="remove-btn" (click)="removeMeal(meal)">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div *ngFor="let item of cartItems" class="cart-item" [@itemAnimation]>
+          <div class="item-image">
+            <img [src]="item.image || 'assets/placeholder-food.jpg'" [alt]="item.name" />
+          </div>
+
+          <div class="item-details">
+            <h4 class="item-name">{{ item.name }}</h4>
+            <p class="item-price">{{ item.price | currency }}</p>
+          </div>
+
+          <div class="quantity-controls">
+            <button class="quantity-btn" (click)="decreaseItemQuantity(item)">
+              <i class="fas fa-minus"></i>
+            </button>
+            <span class="quantity">{{ item.quantity }}</span>
+            <button class="quantity-btn" (click)="increaseItemQuantity(item)">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+
+          <div class="item-total">
+            {{ (item.price * item.quantity) | currency }}
+          </div>
+
+          <button class="remove-btn" (click)="removeItem(item)">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="cart-summary">
+        <div class="total-price">
+          <span>Total:</span>
+          <span class="amount">{{ totalPrice | currency }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="checkout-section">
+      <div class="checkout-card">
+        <h3>Order Information</h3>
+
+        <form class="checkout-form">
+          <div class="form-group">
+            <label for="location" class="form-label">
+              <i class="fas fa-map-marker-alt"></i> Delivery Address
+            </label>
+            <input
+              type="text"
+              id="location"
+              class="form-control"
+              [(ngModel)]="location"
+              [ngModelOptions]="{standalone: true}"
+              placeholder="Enter your delivery address"
+              [class.error]="isLocationEmpty"
+            />
+            <div class="error-message" *ngIf="isLocationEmpty">
+              <i class="fas fa-exclamation-circle"></i> Delivery address is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="notes" class="form-label">
+              <i class="fas fa-sticky-note"></i> Order Notes (Optional)
+            </label>
+            <textarea
+              id="notes"
+              class="form-control"
+              rows="4"
+              [(ngModel)]="notes"
+              [ngModelOptions]="{standalone: true}"
+              placeholder="Special instructions, dietary restrictions, etc."
+            ></textarea>
+          </div>
+
+          <div class="form-group" *ngIf="discountCode">
+            <label for="discountCode" class="form-label">
+               <i class="fa-solid fa-ticket"></i>  Discount Code
+            </label>
+            <input
+              type="text"
+              id="discountCode"
+              class="form-control"
+              [(ngModel)]="order.discountCode"
+              [ngModelOptions]="{standalone: true}"
+              placeholder="Enter your Discount Code"
+              [class.error]="wrongCode"
+            />
+            <div class="error-message" *ngIf="wrongCode">
+              <i class="fas fa-exclamation-circle"></i> Wrong Code!
+            </div>
+          </div>
+
+          <div class="order-summary">
+            <h4>Order Summary</h4>
+            <div class="summary-item">
+              <span>Items ({{getTotalItems()}}):</span>
+              <span>{{ totalPrice | currency }}</span>
+            </div>
+            <div class="summary-item">
+              <span>Delivery Fee:</span>
+              <span>Free</span>
+            </div>
+            <div class="summary-item total">
+              <span>Total:</span>
+              <span>{{ totalPrice | currency }}</span>
+            </div>
+          </div>
+
+          <button
+            class="confirm-order-btn"
+            (click)="ConfirmOrder()"
+            [disabled]="isSubmitting"
+          >
+            <span *ngIf="!isSubmitting">Confirm Order</span>
+            <span *ngIf="isSubmitting">Processing...</span>
+            <i class="fas" [ngClass]="{'fa-check': !isSubmitting, 'fa-spinner fa-spin': isSubmitting}"></i>
+          </button>
+
+          <div class="error-message" *ngIf="isOrderEmpty">
+            <i class="fas fa-exclamation-circle"></i> Your cart is empty
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyCart>
+    <div class="empty-cart" [@fadeIn]>
+      <div class="empty-cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+      </div>
+      <h3>Your cart is empty</h3>
+      <p>Add some delicious items to get started!</p>
+      <button class="browse-btn" routerLink="/CustomerNavigation/CustomerItems">
+        Browse Menu
+      </button>
+    </div>
+  </ng-template>
+</div>

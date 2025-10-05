@@ -1,0 +1,68 @@
+<div class="container animated fadeIn">
+  <div class="header-section">
+    <h2 class="page-title">Categories Management</h2>
+    <button class="btn btn-add" routerLink="/AdminNavigation/AddCategory">
+      <i class="fas fa-plus-circle"></i> Add Category
+    </button>
+  </div>
+
+  <div class="table-responsive">
+    <div *ngIf="categories.length > 0; else noCategories">
+      <table class="table table-hover category-table">
+        <thead class="table-header">
+          <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>Category Name</th>
+            <th>Description</th>
+            <th>Creation Date</th>
+            <th>Status</th>
+            <th>Last Modified</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let category of categories; let i = index" class="category-row">
+            <td>{{ i + 1 }}</td>
+            <td>{{ category.id }}</td>
+            <td>
+              <span class="category-badge" [ngClass]="getCategoryClass(category.name)">
+                {{category.name}}
+              </span>
+            </td>
+            <td>{{ category.description || 'No description' }}</td>
+            <td>{{ category.creationDate | date:'yyyy-MM-dd' }}</td>
+            <td>
+              <span class="status-badge" [ngClass]="{'active': category.isActive, 'inactive': !category.isActive}">
+                {{ category.isActive ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td>{{ category.modificationDate ? (category.modificationDate | date:'yyyy-MM-dd') : 'Never modified' }}</td>
+            <td class="actions-cell">
+              <button class="btn btn-edit"
+                      [routerLink]="['/AdminNavigation/EditCategory', category.id]"
+                      title="Edit Category">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="btn btn-delete"
+                      (click)="showConfirm = true; categoryId = category.id"
+                      title="Delete Category">
+                <i class="fas fa-trash-alt"></i> Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ng-template #noCategories>
+    <div class="alert alert-info">No categories found</div>
+  </ng-template>
+
+  <app-confirm-dialog
+    *ngIf="showConfirm"
+    message="Are you sure you want to delete this category?"
+    (confirmed)="onConfirm($event)">
+  </app-confirm-dialog>
+</div>

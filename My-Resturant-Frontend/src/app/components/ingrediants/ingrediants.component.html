@@ -1,0 +1,81 @@
+<div class="container animated fadeIn">
+  <div class="header-section">
+    <h2 class="page-title">Ingredients Management</h2>
+    <button class="btn btn-add" routerLink="/AdminNavigation/AddIngrediant">
+      <i class="fas fa-plus-circle"></i> Add Ingredient
+    </button>
+  </div>
+
+  <div class="table-responsive">
+    <div *ngIf="ingrediants.length > 0; else noIngredients">
+      <table class="table table-hover category-table">
+        <thead class="table-header">
+          <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>Ingredient Name</th>
+            <th>Unit</th>
+            <th>Status</th>
+            <th>Creation Date</th>
+            <th>Last Modified</th>
+            <th>Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ingrediant of ingrediants; let i = index" class="category-row">
+            <td>{{ i + 1 }}</td>
+            <td>{{ ingrediant.id }}</td>
+            <td>{{ ingrediant.name }}</td>
+            <td>
+              <span class="category-badge" [ngClass]="getUnitClass(ingrediant.unit)">
+                {{ ingrediant.unit }}
+              </span>
+            </td>
+            <td>
+              <span class="status-badge" [ngClass]="{'active': ingrediant.isActive, 'inactive': !ingrediant.isActive}">
+                {{ ingrediant.isActive ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td>{{ ingrediant.creationDate | date:'yyyy-MM-dd' }}</td>
+            <td>{{ ingrediant.modificationDate ? (ingrediant.modificationDate | date:'yyyy-MM-dd') : 'Never modified' }}</td>
+            <td>
+              <div class="image-container">
+                <img *ngIf="ingrediant.image"
+                    [src]="ingrediant.image"
+                    alt="Ingredient image"
+                    class="ingredient-image hover-zoom"
+                    [ngClass]="{'has-image': ingrediant.image}">
+                <div *ngIf="!ingrediant.image" class="image-placeholder pulse">
+                  <i class="fas fa-camera"></i>
+                </div>
+              </div>
+            </td>
+            <td class="actions-cell">
+              <button class="btn btn-edit"
+                      [routerLink]="['/AdminNavigation/EditIngrediant', ingrediant.id]"
+                      title="Edit Ingredient">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="btn btn-delete"
+                      (click)="showConfirm = true; ingrediantId = ingrediant.id"
+                      title="Delete Ingredient">
+                <i class="fas fa-trash-alt"></i> Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ng-template #noIngredients>
+    <div class="alert alert-info">No ingredients found</div>
+  </ng-template>
+
+  <app-confirm-dialog
+    *ngIf="showConfirm"
+    message="Are you sure you want to delete this ingredient?"
+    (confirmed)="onConfirm($event)">
+  </app-confirm-dialog>
+</div>

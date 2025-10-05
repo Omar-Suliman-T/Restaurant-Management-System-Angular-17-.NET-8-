@@ -1,0 +1,161 @@
+<div class="order-details-container">
+  <div *ngIf="lastOrder" class="order-confirmed" [@fadeInUp]>
+    <div class="success-banner">
+      <i class="fas fa-check-circle"></i>
+      <span>Your Order Has Been Confirmed!</span>
+    </div>
+
+    <div class="order-card">
+      <div class="order-header">
+        <h3>Order #{{lastOrder.id}}</h3>
+        <span class="order-date">{{lastOrder.creationDate | date:'medium'}}</span>
+      </div>
+
+      <div class="order-info-grid">
+        <div class="info-item">
+          <div class="info-label">
+            <i class="fas fa-truck"></i>
+            Status
+          </div>
+          <div class="info-value status-badge" [class]="getStatusClass(lastOrder.orderStatus)">
+            {{lastOrder.orderStatus}}
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-label">
+            <i class="fas fa-map-marker-alt"></i>
+            Delivery Address
+          </div>
+          <div class="info-value">{{lastOrder.deliveryAdress}}</div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-label">
+            <i class="fas fa-sticky-note"></i>
+            Notes
+          </div>
+          <div class="info-value">{{lastOrder.costumerNotes || 'No notes provided'}}</div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-label">
+            <i class="fas fa-star"></i>
+            Rating
+          </div>
+          <div class="info-value rating-display">
+            {{lastOrder.rating || 'Not rated yet'}}
+          </div>
+        </div>
+
+        <div class="info-item total-item">
+          <div class="info-label">
+            <i class="fas fa-receipt"></i>
+            Total Amount
+          </div>
+          <div class="info-value total-price"><span class="original-price" *ngIf="lastOrder.discountCode"><del>{{(lastOrder.netPrice)*1.2}} </del></span>{{lastOrder.netPrice | currency}}</div>
+        </div>
+      </div>
+
+      <div class="order-actions">
+        <button class="btn-update" (click)="showForm = true">
+          <i class="fas fa-edit"></i>
+          Update Order
+        </button>
+        <button class="btn-cancel" (click)="showConfirm=true">
+          <i class="fas fa-times"></i>
+          Cancel Order
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showForm" class="update-form-container" [@slideInRight]>
+    <div class="form-card">
+      <div class="form-header">
+        <h4>Update Your Order</h4>
+        <button class="close-btn" (click)="showForm = false">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <form class="update-form">
+        <div class="form-group">
+          <label for="location" class="form-label">
+            <i class="fas fa-map-marker-alt"></i>
+            Delivery Address
+          </label>
+          <input
+            type="text"
+            id="location"
+            class="form-control"
+            placeholder="Enter new delivery address"
+            [(ngModel)]="updateOrder.deliveryAdress"
+            [ngModelOptions]="{standalone: true}"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="notes" class="form-label">
+            <i class="fas fa-sticky-note"></i>
+            Order Notes
+          </label>
+          <textarea
+            id="notes"
+            class="form-control"
+            rows="3"
+            placeholder="Any special instructions or notes..."
+            [(ngModel)]="updateOrder.customerNotes"
+            [ngModelOptions]="{standalone: true}"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="rating" class="form-label">
+            <i class="fas fa-star"></i>
+            Rate Your Experience
+          </label>
+          <select
+            id="rating"
+            class="form-select"
+            [(ngModel)]="updateOrder.rating"
+            [ngModelOptions]="{standalone: true}"
+          >
+            <option value="" disabled selected>Select a rating</option>
+            <option value="Excellent">⭐⭐⭐⭐⭐ Excellent</option>
+            <option value="Very Good">⭐⭐⭐⭐ Very Good</option>
+            <option value="Good">⭐⭐⭐ Good</option>
+            <option value="Fair">⭐⭐ Fair</option>
+            <option value="Poor">⭐ Poor</option>
+          </select>
+        </div>
+
+        <button type="button" class="btn-submit" (click)="UpdateOrder()">
+          <i class="fas fa-check"></i>
+          Submit Changes
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="!lastOrder" class="no-order-container" [@fadeIn]>
+    <div class="no-order-content">
+      <div class="no-order-icon">
+        <i class="fas fa-shopping-bag"></i>
+      </div>
+      <h2 class="no-order-title">No Active Orders</h2>
+      <p class="no-order-message">You don't have any recent orders. Start exploring our menu!</p>
+      <button class="btn-order-now" routerLink="/CustomerNavigation/CustomerItems">
+        <i class="fas fa-utensils"></i>
+        Order Now
+      </button>
+    </div>
+  </div>
+
+  <app-confirm-dialog
+    *ngIf="showConfirm"
+    message="Are you sure you want to cancel this order? This action cannot be undone."
+    (confirmed)="onConfirmCancel($event)"
+    [@modalAnimation]>
+  </app-confirm-dialog>
+</div>

@@ -1,0 +1,146 @@
+<div class="auth-container">
+  <!-- Login Form -->
+  <div class="auth-card" *ngIf="!showResetPasswordForm" @formSwitch @stagger>
+    <div class="auth-header" @slideIn>
+      <i *ngIf="!loading" class="fa-solid fa-burger logo-icon"></i>
+      <div class="spinner-border text-primary" role="status" *ngIf="loading">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <h2 class="auth-title">Welcome Back</h2>
+      <p class="auth-subtitle">Please enter your credentials</p>
+    </div>
+
+    <form (ngSubmit)="login()" #loginForm="ngForm" class="auth-form">
+      <div class="form-group" @slideIn>
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" class="form-control" id="email" name="email"
+               [(ngModel)]="email" #emailInput="ngModel" required email
+               [class.is-invalid]="emailInput.invalid && emailInput.touched"
+               placeholder="your@email.com">
+        <div *ngIf="emailInput.invalid && emailInput.touched" class="invalid-feedback">
+          Please enter a valid email address
+        </div>
+      </div>
+
+      <div class="form-group" @slideIn>
+        <label for="password" class="form-label">Password</label>
+        <div class="password-input">
+          <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password" name="password"
+                 [(ngModel)]="password" #passwordInput="ngModel" required minlength="6"
+                 [class.is-invalid]="passwordInput.invalid && passwordInput.touched"
+                 placeholder="••••••••">
+          <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
+            <i class="fas" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+          </button>
+        </div>
+        <div *ngIf="passwordInput.invalid && passwordInput.touched" class="invalid-feedback">
+          Password must be at least 6 characters
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-3" @slideIn>
+        <div class="form-check">
+          <input [(ngModel)]="rememberMe" type="checkbox" class="form-check-input" name="rememberMe" id="rememberMe">
+          <label class="form-check-label" for="rememberMe">Remember me</label>
+        </div>
+        <button type="button" (click)="showResetPassword()" class="forgot-password">Forgot password?</button>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 auth-btn" @slideIn
+              [disabled]="loading || loginForm.invalid">
+        <span *ngIf="!loading">Log In</span>
+        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </button>
+
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3" @fadeIn>
+        <i class="fas fa-exclamation-circle me-2"></i>{{errorMessage}}
+      </div>
+
+      <div class="auth-link text-center mt-3" @slideIn>
+        Don't have an account? <a routerLink="/SignUp" class="auth-link-text">Sign up</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- Reset Password Form -->
+  <div class="auth-card" [class.codeSent]="codeSent" *ngIf="showResetPasswordForm" @formSwitch @stagger>
+    <div class="auth-header" @slideIn>
+      <button type="button" class="back-btn" (click)="backToLogin()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <h2 class="auth-title">Reset Password</h2>
+      <p class="auth-subtitle">{{ codeSent ? 'Enter verification code and new password' : 'Enter your email to receive a verification code' }}</p>
+    </div>
+
+    <form class="auth-form" #resetForm="ngForm">
+      <!-- Success/Info Messages -->
+      <div *ngIf="message" class="alert"
+           [class.alert-info]="!message.includes('error')"
+           [class.alert-danger]="message.includes('error')"
+           @fadeIn>
+        <i class="fas"
+           [class.fa-info-circle]="!message.includes('error')"
+           [class.fa-exclamation-circle]="message.includes('error')"></i>
+        {{message}}
+      </div>
+
+      <!-- Email Input -->
+      <div class="form-group" @slideIn>
+        <label for="resetEmail" class="form-label">Email Address</label>
+        <input type="email" class="form-control" id="resetEmail" name="resetEmail"
+               [(ngModel)]="email" #resetEmailInput="ngModel" required email
+               [class.is-invalid]="resetEmailInput.invalid && resetEmailInput.touched"
+               placeholder="your@email.com" [disabled]="codeSent">
+        <div *ngIf="resetEmailInput.invalid && resetEmailInput.touched" class="invalid-feedback">
+          Please enter a valid email address
+        </div>
+      </div>
+
+      <!-- Code Input (shown after email is sent) -->
+      <div *ngIf="codeSent" class="form-group" @expandIn>
+        <label for="verificationCode" class="form-label">Verification Code</label>
+        <input type="text" class="form-control" id="verificationCode" name="verificationCode"
+               [(ngModel)]="code" #codeInput="ngModel" required
+               [class.is-invalid]="codeInput.invalid && codeInput.touched"
+               placeholder="Enter 6-digit code" maxlength="6">
+        <div *ngIf="codeInput.invalid && codeInput.touched" class="invalid-feedback">
+          Please enter the verification code
+        </div>
+      </div>
+
+      <!-- New Password Input (shown after email is sent) -->
+      <div *ngIf="codeSent" class="form-group" @expandIn>
+        <label for="newPassword" class="form-label">New Password</label>
+        <div class="password-input">
+          <input type="password" class="form-control" id="newPassword" name="newPassword"
+                 [(ngModel)]="password" #newPasswordInput="ngModel" required minlength="6"
+                 [class.is-invalid]="newPasswordInput.invalid && newPasswordInput.touched"
+                 placeholder="••••••••">
+        </div>
+        <div *ngIf="newPasswordInput.invalid && newPasswordInput.touched" class="invalid-feedback">
+          Password must be at least 6 characters
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="auth-actions" @slideIn>
+        <button *ngIf="!codeSent" type="button" class="btn btn-primary w-100 auth-btn"
+                (click)="ResetPassword(email)" [disabled]="!email || loading">
+          <span *ngIf="!loading">Send Verification Code</span>
+          <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"></span>
+        </button>
+
+        <button *ngIf="codeSent" type="button" class="btn btn-success w-100 auth-btn" @expandIn
+                (click)="VerifyRequest()" [disabled]="loading || !code || !password">
+          <span *ngIf="!loading">Reset Password</span>
+          <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"></span>
+        </button>
+      </div>
+
+      <div class="auth-link text-center mt-3" @slideIn>
+        Remember your password?
+        <a href="javascript:void(0)" class="auth-link-text" (click)="backToLogin()">Back to login</a>
+      </div>
+    </form>
+  </div>
+</div>

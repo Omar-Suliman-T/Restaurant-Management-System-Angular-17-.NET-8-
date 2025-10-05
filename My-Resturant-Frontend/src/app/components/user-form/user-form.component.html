@@ -1,0 +1,114 @@
+<div class="Fform-container">
+  <div class="form-card">
+    <h2 class="form-title">{{userId ? 'Update User' : 'Add New User'}}</h2>
+
+    <form (ngSubmit)="handleSubmit()" #userForm="ngForm" class="form">
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="firstName" class="form-label">First Name</label>
+          <input type="text" id="firstName" class="form-control"
+                 [(ngModel)]="user.firstName" name="firstName" required
+                 [class.is-invalid]="showError('firstName')">
+          <div *ngIf="showError('firstName')" class="invalid-feedback">
+            First name is required
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input type="text" id="lastName" class="form-control"
+                 [(ngModel)]="user.lastName" name="lastName" required
+                 [class.is-invalid]="showError('lastName')">
+          <div *ngIf="showError('lastName')" class="invalid-feedback">
+            Last name is required
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" class="form-control"
+                 [(ngModel)]="user.email" name="email" required
+                 [class.is-invalid]="showError('email') || notValidEmail">
+          <div *ngIf="showError('email')" class="invalid-feedback">
+            Email is required
+          </div>
+          <div *ngIf="notValidEmail && !showError('email')" class="invalid-feedback">
+            Please enter a valid email address
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="phone" class="form-label">Phone</label>
+          <input type="text" id="phone" class="form-control"
+                 [(ngModel)]="user.phone" name="phone" required
+                 [class.is-invalid]="showError('phone')">
+          <div *ngIf="showError('phone')" class="invalid-feedback">
+            Phone number is required
+          </div>
+        </div>
+
+
+        <div class="form-group" *ngIf="!userId">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" id="password" class="form-control"
+                 [(ngModel)]="user.password" name="password" required
+                 [class.is-invalid]="showError('password') || notValidPassword">
+          <div *ngIf="showError('password')" class="invalid-feedback">
+            Password is required
+          </div>
+          <div *ngIf="notValidPassword && !showError('password')" class="invalid-feedback">
+            Password must be at least 6 characters
+          </div>
+          <small class="form-text text-muted" *ngIf="!userId">
+            Password must be at least 6 characters long
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="role" class="form-label">Role</label>
+          <select id="role" class="form-select"
+                  [(ngModel)]="user.role" name="role" required
+                  [class.is-invalid]="showError('role')">
+            <option [ngValue]="null" disabled selected>Select a role</option>
+            <option [ngValue]="11">Admin</option>
+            <option [ngValue]="12">Customer</option>
+          </select>
+          <div *ngIf="showError('role')" class="invalid-feedback">
+            Please select a role
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <div class="status-options">
+            <div class="form-check">
+              <input type="radio" id="active" name="status" class="form-check-input"
+                     [(ngModel)]="user.isActive" [value]="true" required>
+              <label for="active" class="form-check-label">Active</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" id="notActive" name="status" class="form-check-input"
+                     [(ngModel)]="user.isActive" [value]="false">
+              <label for="notActive" class="form-check-label">Inactive</label>
+            </div>
+          </div>
+          <div *ngIf="showError('isActive')" class="invalid-feedback d-block">
+            Please select a status
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+        <button type="submit" class="btn btn-primary">
+          {{userId ? 'Update User' : 'Add User'}}
+          <i class="fas fa-save ms-2"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

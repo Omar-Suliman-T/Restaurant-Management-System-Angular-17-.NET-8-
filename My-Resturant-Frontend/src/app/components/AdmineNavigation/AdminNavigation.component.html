@@ -1,0 +1,89 @@
+
+<header>
+  <nav class="admin-navbar" *ngIf="getToken()">
+    <div class="nav-container">
+      <div class="nav-item" routerLink="/AdminNavigation/Home">
+        <i class="fas fa-home"></i> Home Page
+      </div>
+
+      <div class="nav-item dropdown">
+        <span><i class="fas fa-cog"></i> Configuration Management</span>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" routerLink="/AdminNavigation/Users">
+            <i class="fas fa-users"></i> Users
+          </a>
+          <a class="dropdown-item" routerLink="/AdminNavigation/Categories">
+            <i class="fas fa-tags"></i> Categories
+          </a>
+          <a class="dropdown-item" routerLink="/AdminNavigation/Ingrediants">
+            <i class="fas fa-carrot"></i> Ingredients
+          </a>
+        </div>
+      </div>
+
+      <div class="nav-item dropdown">
+        <span><i class="fas fa-utensils"></i> Menu Management</span>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" routerLink="/AdminNavigation/Items">
+            <i class="fas fa-pizza-slice"></i> Items
+          </a>
+          <a class="dropdown-item" routerLink="/AdminNavigation/Meals">
+            <i class="fas fa-hamburger"></i> Meals
+          </a>
+        </div>
+      </div>
+
+      <div class="nav-item" routerLink="/AdminNavigation/Orders">
+        <i class="fas fa-clipboard-list"></i> Order Management
+      </div>
+
+      <div class="nav-item" routerLink="/AdminNavigation/Reservations">
+        <i class="fa-solid fa-calendar-days"></i> Reservations
+      </div>
+
+      <div class="nav-item about-link" routerLink="/AdminNavigation/AboutUs">
+        <i class="fas fa-info-circle"></i> About Us
+      </div>
+
+      <div class="nav-item logout" (click)="LogOut()">
+        <i class="fas fa-sign-out-alt"></i> Log Out
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="page-content">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="admin-footer" *ngIf="getToken()">
+  <div class="footer-container">
+    <div class="footer-row">
+      <div class="footer-section">
+        <h5>My Restaurant</h5>
+        <p>Your go-to place for delicious meals, fast delivery, and fresh ingredients.</p>
+      </div>
+
+      <div class="footer-section">
+        <h5>Quick Links</h5>
+        <ul class="footer-links">
+          <li><a routerLink="/AdminNavigation/AboutUs">About Us</a></li>
+          <li><a routerLink="/AdminNavigation/Items">Items</a></li>
+          <li><a routerLink="/AdminNavigation/Meals">Meals</a></li>
+          <li><a routerLink="/AdminNavigation/Users">Users</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h5>Contact</h5>
+        <p>{{sentence}}</p>
+        <p>Phone: +962 6 123 4567</p>
+        <p>Address: Amman, Jordan</p>
+      </div>
+    </div>
+
+    <div class="footer-copyright">
+      &copy; 2025 My Restaurant. All rights reserved.
+    </div>
+  </div>
+</footer>

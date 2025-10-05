@@ -1,0 +1,139 @@
+<div class="container py-4 meal-details-container animated-container">
+
+   <div class="back-navigation mb-4">
+    <button class="btn btn-back" (click)="goBackToMeals()">
+      <i class="fas fa-arrow-left me-2"></i>Back to Meals
+    </button>
+  </div>
+  
+  <div class="header-section mb-4">
+    <h2 class="page-title">Meal Composition</h2>
+    <button class="btn btn-add-item" (click)="showForm2=true">
+      <i class="fas fa-plus-circle me-2"></i>Add Item
+    </button>
+  </div>
+
+  <!-- Items Table -->
+  <div class="card meal-items-card">
+    <div class="table-container">
+      <table class="meal-items-table">
+        <thead>
+          <tr class="table-header-row">
+            <th class="item-column">Item</th>
+            <th class="quantity-column">Quantity</th>
+            <th class="image-column">Image</th>
+            <th class="actions-column">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let meal of mealDetials">
+            <tr class="item-row">
+              <td class="item-cell">
+                <div class="item-info">
+                  <img *ngIf="meal.image" [src]="meal.image" class="item-image rounded" alt="Item image">
+                  <div class="item-text">
+                    <h6 class="item-name">{{ meal.itemName }}</h6>
+                    <small class="item-id">ID: {{ meal.itemId }}</small>
+                  </div>
+                </div>
+              </td>
+              <td class="quantity-cell">
+                <span class="quantity-badge">{{ meal.quantity }}</span>
+              </td>
+              <td class="image-cell">
+                <img *ngIf="meal.image" [src]="meal.image" class="item-thumbnail" alt="Item image">
+                <span *ngIf="!meal.image" class="no-image-badge">No Image</span>
+              </td>
+              <td class="actions-cell">
+                <div class="action-buttons">
+                  <button class="btn btn-edit" (click)="editingItemId=meal.itemId; quantity=meal.quantity">
+                    <i class="fas fa-edit me-1"></i>Edit
+                  </button>
+                  <button class="btn btn-delete" (click)="showConfirm=true; itemId=meal.itemId">
+                    <i class="fas fa-trash-alt me-1"></i>Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Edit Form Row -->
+            <tr *ngIf="editingItemId === meal.itemId" class="edit-form-row animated-form">
+              <td colspan="4">
+                <form (ngSubmit)="AddItemToMealOrChangeQuantity(mealId, meal.itemId, quantity)"
+                      #userForm1="ngForm" class="edit-quantity-form">
+                  <div class="form-group">
+                    <label class="form-label">Update Quantity</label>
+                    <div class="input-group">
+                      <input type="number" name="number" min="1" step="1"
+                             [(ngModel)]="quantity" required class="form-control">
+                      <div class="form-actions">
+                        <button type="submit" class="btn btn-save">
+                          <i class="fas fa-check me-1"></i>Save
+                        </button>
+                        <button type="button" class="btn btn-cancel"
+                                (click)="editingItemId = null">
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </td>
+            </tr>
+          </ng-container>
+
+          <tr *ngIf="mealDetials.length === 0" class="empty-row">
+            <td colspan="4">
+              <div class="empty-state">
+                <i class="fas fa-utensils empty-icon"></i>
+                <p class="empty-message">No items added to this meal yet</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Add Item Form -->
+  <div *ngIf="showForm2" class="card add-item-card animated-form">
+    <div class="card-header">
+      <h5 class="card-title">Add New Item</h5>
+      <button class="btn-close" (click)="showForm2=false">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="AddItemToMealOrChangeQuantity(mealId, itemId, quantity)"
+            #userForm2="ngForm" class="add-item-form">
+        <div class="form-row">
+          <div class="form-group col-md-7">
+            <label for="items" class="form-label">Select Item</label>
+            <select id="items" class="form-control" name="items" [(ngModel)]="itemId" required>
+              <option value="" disabled selected>Choose an item...</option>
+              <option *ngFor="let item of items" [ngValue]="item.id">
+                {{item.name}} (ID: {{item.id}})
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input type="number" id="quantity" name="number" min="1" step="1"
+                   [(ngModel)]="quantity" required class="form-control">
+          </div>
+          <div class="form-group col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-add w-100">
+              <i class="fas fa-plus me-1"></i>Add
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-confirm-dialog
+  *ngIf="showConfirm"
+  message="Are you sure you want to delete this item?"
+  (confirmed)="onConfirm($event)">
+</app-confirm-dialog>

@@ -1,0 +1,107 @@
+<div class="restaurant-story">
+  <div class="story-hero">
+    <div class="hero-content">
+      <h1>Our Story</h1>
+      <div class="divider"></div>
+    </div>
+  </div>
+
+  <div class="story-content">
+    <p class="intro-text">
+      My Restaurant was founded with one simple goal — to bring warmth, flavor, and community to your table.
+      What started as a small family dream has blossomed into a beloved dining destination where every meal
+      is crafted with fresh ingredients and served with genuine hospitality.
+    </p>
+
+    <div class="expandable-content" [class.expanded]="isExpanded">
+      <div class="additional-content">
+        <div class="story-grid">
+          <div class="story-card">
+            <div class="story-icon">
+              <i class="fas fa-seedling"></i>
+            </div>
+            <h3>Fresh Ingredients</h3>
+            <p>We source locally-grown produce and premium ingredients to ensure every dish is bursting with flavor and nutrition.</p>
+          </div>
+
+          <div class="story-card">
+            <div class="story-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <h3>Made with Love</h3>
+            <p>Every recipe is prepared with care and passion, honoring traditional cooking methods with a modern twist.</p>
+          </div>
+
+          <div class="story-card">
+            <div class="story-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3>Community Focused</h3>
+            <p>We believe in building relationships with our customers and supporting our local community through events and partnerships.</p>
+          </div>
+        </div>
+
+        <div class="timeline-section">
+          <h2>Our Journey</h2>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-date">2010</div>
+              <div class="timeline-content">
+                <h4>Grand Opening</h4>
+                <p>We opened our doors with just 10 tables and a dream to serve authentic, homemade meals.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">2014</div>
+              <div class="timeline-content">
+                <h4>First Expansion</h4>
+                <p>Due to popular demand, we expanded our space to accommodate more guests and added outdoor seating.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">2018</div>
+              <div class="timeline-content">
+                <h4>Best Restaurant Award</h4>
+                <p>Voted "Best Local Restaurant" by our community for outstanding food and service.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">2023</div>
+              <div class="timeline-content">
+                <h4>New Location</h4>
+                <p>Opened our second location while maintaining the same quality and commitment to excellence.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-section">
+          <h2>Meet Our Founders</h2>
+          <div class="team-grid">
+            <div class="team-member">
+              <div class="member-image">
+                <i class="fas fa-user"></i>
+              </div>
+              <h4>Omar Suliman</h4>
+              <p class="role">Executive Chef & Co-Founder</p>
+              <p>With over 20 years of culinary experience, Maria brings traditional family recipes to life.</p>
+            </div>
+            <div class="team-member">
+              <div class="member-image">
+                <i class="fas fa-user"></i>
+              </div>
+              <h4>Ahmad Salem</h4>
+              <p class="role">Operations & Co-Founder</p>
+              <p>James ensures every guest experiences the warmth and hospitality that defines our restaurant.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="learn-more-btn" (click)="toggleExpand()">
+      {{ isExpanded ? 'Show Less' : 'Learn More' }}
+      <i class="fas" [ngClass]="{'fa-chevron-up': isExpanded, 'fa-chevron-down': !isExpanded}"></i>
+    </button>
+  </div>
+</div>

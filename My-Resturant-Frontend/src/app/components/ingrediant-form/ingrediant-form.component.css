@@ -1,0 +1,44 @@
+/* ingrediant-form.component.css */
+/* Inherits all styles from category-form.component.css */
+
+/* Additional styles for image upload */
+.form-control[type="file"] {
+  padding: 0.5rem;
+  background-color: transparent;
+}
+
+.form-control[type="file"]::file-selector-button {
+  padding: 0.5rem 1rem;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control[type="file"]::file-selector-button:hover {
+  background-color: #e9ecef;
+}
+
+/* Preview for selected image */
+.image-preview {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.image-preview img {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.image-preview button {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  cursor: pointer;
+}
+

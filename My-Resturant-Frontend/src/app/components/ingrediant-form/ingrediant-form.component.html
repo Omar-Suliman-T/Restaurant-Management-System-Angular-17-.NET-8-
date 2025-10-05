@@ -1,0 +1,70 @@
+<div class="form-container">
+  <div class="form-card">
+    <h2 class="form-title">{{ingrediantId === 0 ? 'Add New Ingredient' : 'Update Ingredient'}}</h2>
+
+    <form (ngSubmit)="UpdateIngrediant()" #userForm="ngForm" class="form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" id="name" class="form-control"
+                 [(ngModel)]="ingrediant.name" name="name" required
+                 [class.is-invalid]="isRequaired && !ingrediant.name && userForm.submitted">
+          <div *ngIf="isRequaired && !ingrediant.name && userForm.submitted" class="invalid-feedback">
+            Name is required
+          </div>
+        </div>
+
+          <div class="form-group">
+              <label for="Unit" class="form-label">Unit</label>
+              <select id="Unit" class="form-select"
+                      [(ngModel)]="ingrediant.unit" name="Unit" required
+                      [class.is-invalid]="isRequaired && !ingrediant.unit && userForm.submitted">
+                <option [ngValue]="null" disabled>Select A Unit</option>
+                <option [ngValue]="'Gm'">GM</option>
+                <option [ngValue]="'ML'">ML</option>
+                <option [ngValue]="'PIECES'">PIECES</option>
+              </select>
+              <div *ngIf="isRequaired && !ingrediant.unit && userForm.submitted" class="invalid-feedback">
+                Unit is required
+              </div>
+        </div>
+
+        <div class="form-group">
+          <label for="image" class="form-label">Image</label>
+          <input type="file" class="form-control" id="image"
+                 (change)="onImageSelected($event)"
+                 accept="image/*">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <div class="status-options">
+            <div class="form-check">
+              <input type="radio" id="active" name="status" class="form-check-input"
+                     [(ngModel)]="ingrediant.isActive" [value]="true" required>
+              <label for="active" class="form-check-label">Active</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" id="notActive" name="status" class="form-check-input"
+                     [(ngModel)]="ingrediant.isActive" [value]="false">
+              <label for="notActive" class="form-check-label">Inactive</label>
+            </div>
+          </div>
+          <div *ngIf="isRequaired && !ingrediant.isActive && userForm.submitted" class="invalid-feedback d-block">
+            Please select a status
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="router.navigate(['/AdminNavigation/Ingrediants'])">
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-primary">
+          {{ingrediantId === 0 ? 'Add Ingredient' : 'Update Ingredient'}}
+          <i class="fas fa-save ms-2"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

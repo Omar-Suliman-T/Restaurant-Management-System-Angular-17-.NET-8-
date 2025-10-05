@@ -1,0 +1,124 @@
+/* ingrediants.component.css */
+/* Additional styles specific to ingredients */
+.ingredient-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  object-fit: cover;
+  border: 1px solid #eee;
+}
+
+.no-image {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  /* Hide image column on mobile */
+  .category-table td:nth-child(8),
+  .category-table th:nth-child(8) {
+    display: none;
+  }
+}
+/* Image Container */
+.image-container {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Base Image Styles */
+.ingredient-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border: 2px solid white;
+}
+
+/* Hover Effects */
+.hover-zoom:hover {
+  transform: scale(1.8) translateY(-10px);
+  z-index: 10;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  border-color: #a777e3;
+}
+
+/* Placeholder Styles */
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9b59b6;
+  font-size: 1.2rem;
+  border: 2px dashed #d6d6d6;
+}
+
+/* Loading Animation */
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.pulse {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* Fade-in Animation for Images */
+@keyframes fadeInZoom {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.has-image {
+  animation: fadeInZoom 0.6s forwards;
+}
+
+/* Glow Effect for Premium Ingredients */
+.premium-ingredient {
+  position: relative;
+}
+
+.premium-ingredient::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: linear-gradient(45deg, #ffd700, #ff8c00, #ffd700);
+  z-index: -1;
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.premium-ingredient:hover::after {
+  opacity: 0.6;
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  from { filter: blur(3px); }
+  to { filter: blur(5px); }
+}
+.actions-cell{
+  height: 92px;
+}

@@ -1,0 +1,74 @@
+<div class="container animated fadeIn">
+  <div class="header-section">
+    <h2 class="page-title">Orders Management</h2>
+  </div>
+
+  <div class="table-responsive">
+    <div *ngIf="Orders.length > 0; else noOrders">
+      <table class="table table-hover order-table">
+        <thead class="table-header">
+          <tr>
+            <th>#</th>
+            <th>Customer ID</th>
+            <th>Order Date</th>
+            <th>Status</th>
+            <th>Delivery Address</th>
+            <th>Customer Notes</th>
+            <th>Rating</th>
+            <th>Total Price</th>
+            <th>Discount Code</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of Orders; let i = index" class="order-row">
+            <td>{{ i + 1 }}</td>
+            <td>{{ order.costumerId }}</td>
+            <td>{{ order.creationDate | date:'yyyy-MM-dd' }}</td>
+            <td>
+              <span class="status-badge" [ngClass]="getStatusClass(order.orderStatus)">
+                {{ order.orderStatus }}
+              </span>
+            </td>
+            <td>{{ order.deliveryAdress | slice:0:20 }}{{ order.deliveryAdress.length > 20 ? '...' : '' }}</td>
+            <td>
+              <span *ngIf="order.costumerNotes; else noNotes">
+                {{ order.costumerNotes | slice:0:20 }}{{ order.costumerNotes.length > 20 ? '...' : '' }}
+              </span>
+              <ng-template #noNotes>
+                <span class="text-muted">No notes</span>
+              </ng-template>
+            </td>
+            <td>
+              <span class="rating-badge" [ngClass]="getRatingClass(order.rating)">
+                {{ order.rating || 'No rating' }}
+              </span>
+            </td>
+            <td>{{ order.netPrice | currency:'USD' }}</td>
+            <td [ngClass]="{'discount-code':order.discountCode}">{{ order.discountCode || 'No Discount Code'}}</td>
+            <td class="actions-cell">
+              <button class="btn btn-danger"
+                      (click)="showConfirm = true; orderId = order.id"
+                      title="Cancel Order">
+                <i class="fas fa-trash-alt"></i> Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ng-template #noOrders>
+    <div class="empty-state">
+      <i class="fas fa-clipboard-list empty-icon"></i>
+      <p class="empty-message">No orders found</p>
+    </div>
+  </ng-template>
+
+  <app-confirm-dialog
+    *ngIf="showConfirm"
+    message="Are you sure you want to cancel this order?"
+    (confirmed)="onConfirm($event)">
+  </app-confirm-dialog>
+</div>

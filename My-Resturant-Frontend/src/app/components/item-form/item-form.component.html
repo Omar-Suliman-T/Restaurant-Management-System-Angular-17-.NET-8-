@@ -1,0 +1,125 @@
+<!-- item-form.component.html -->
+<div class="form-container">
+  <div class="form-card">
+    <h2 class="form-title">{{itemId === 0 ? 'Add New Item' : 'Update Item'}}</h2>
+
+    <form (ngSubmit)="UpdateItem()" #itemForm="ngForm" class="form">
+      <div class="form-grid">
+        <!-- Name Field -->
+        <div class="form-group">
+          <label for="Name" class="form-label">Name</label>
+          <input type="text" id="Name" class="form-control"
+                 [(ngModel)]="item.name" name="Name" required
+                 [class.is-invalid]="isRequaired && !item.name && itemForm.submitted">
+          <div *ngIf="isRequaired && !item.name && itemForm.submitted" class="invalid-feedback">
+            Name is required
+          </div>
+        </div>
+
+        <!-- Description Field -->
+        <div class="form-group">
+          <label for="description" class="form-label">Description</label>
+          <input type="text" id="description" class="form-control"
+                 [(ngModel)]="item.description" name="description" required
+                 [class.is-invalid]="isRequaired && !item.description && itemForm.submitted">
+          <div *ngIf="isRequaired && !item.description && itemForm.submitted" class="invalid-feedback">
+            Description is required
+          </div>
+        </div>
+
+        <!-- Price Field -->
+        <div class="form-group">
+          <label for="price" class="form-label">Price</label>
+          <input type="number" id="price" class="form-control"
+                 [(ngModel)]="item.price" name="price" min="0" step="0.1" required
+                 [class.is-invalid]="isRequaired && !item.price && itemForm.submitted">
+          <div *ngIf="isRequaired && !item.price && itemForm.submitted" class="invalid-feedback">
+            Price is required
+          </div>
+        </div>
+
+        <!-- Category Field -->
+        <div class="form-group">
+          <label for="category" class="form-label">Category</label>
+          <select id="category" class="form-select"
+                  [(ngModel)]="item.category" name="category" required
+                  [class.is-invalid]="isRequaired && !item.category && itemForm.submitted">
+            <option [ngValue]="null" disabled>Select A Category</option>
+            <option *ngFor="let category of categories" [ngValue]="category.name">{{category.name}}</option>
+          </select>
+          <div *ngIf="isRequaired && !item.category && itemForm.submitted" class="invalid-feedback">
+            Category is required
+          </div>
+        </div>
+
+        <!-- Image Field -->
+        <div class="form-group">
+          <label for="image" class="form-label">Image</label>
+          <input type="file" class="form-control" id="image"
+                 (change)="onImageSelected($event)"
+                 accept="image/*">
+          <div *ngIf="imagePreview" class="image-preview">
+            <img [src]="imagePreview" alt="Preview">
+            <button type="button" (click)="removeImage()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Ingredients Field -->
+        <div class="form-group">
+          <label for="ingrediants" class="form-label">Ingredients</label>
+          <input type="text" id="ingrediants" class="form-control"
+                 [(ngModel)]="itemIngrediants" name="ingrediants" required
+                 placeholder="e.g. Tomato, Cheese, Basil"
+                 [class.is-invalid]="isRequaired && !itemIngrediants && itemForm.submitted">
+          <div *ngIf="isRequaired && !itemIngrediants && itemForm.submitted" class="invalid-feedback">
+            Ingredients are required
+          </div>
+        </div>
+
+        <!-- Stock Field -->
+        <div class="form-group">
+          <label for="stock" class="form-label">Stock</label>
+          <input type="number" id="stock" class="form-control"
+                 [(ngModel)]="item.stock" name="stock" min="0" step="1" required
+                 [class.is-invalid]="isRequaired && !item.stock && itemForm.submitted">
+          <div *ngIf="isRequaired && !item.stock && itemForm.submitted" class="invalid-feedback">
+            Stock is required
+          </div>
+        </div>
+
+        <!-- Status Field -->
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <div class="status-options">
+            <div class="form-check">
+              <input type="radio" id="active" name="status" class="form-check-input"
+                     [(ngModel)]="item.isActive" [value]="true" required>
+              <label for="active" class="form-check-label">Active</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" id="notActive" name="status" class="form-check-input"
+                     [(ngModel)]="item.isActive" [value]="false">
+              <label for="notActive" class="form-check-label">Inactive</label>
+            </div>
+          </div>
+          <div *ngIf="isRequaired && !item.isActive && itemForm.submitted" class="invalid-feedback d-block">
+            Please select a status
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="router.navigate(['/AdminNavigation/Items'])">
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-primary">
+          {{itemId === 0 ? 'Add Item' : 'Update Item'}}
+          <i class="fas fa-save ms-2"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

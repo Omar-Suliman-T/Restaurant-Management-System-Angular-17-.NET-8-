@@ -1,0 +1,61 @@
+<div class="items-container">
+  <div class="header-section">
+    <h2 class="page-title">Our Menu Items</h2>
+    <p class="page-subtitle">Discover our delicious selection of food items</p>
+  </div>
+
+  <div class="items-grid">
+    <div *ngFor="let item of items" class="item-card" [@cardAnimation]>
+      <div class="item-image-container">
+        <img [src]="item.image || 'assets/placeholder-food.jpg'" [alt]="item.name" class="item-image" />
+        <div class="item-overlay">
+          <button
+            class="add-cart-btn"
+            [ngClass]="{'added': item.id === theButtonId}"
+            [disabled]="item.id === theButtonId"
+            (click)="addItemToCart(item)">
+            {{item.id === theButtonId ? 'Added!' : 'Add to Cart'}}
+            <i class="fas" [ngClass]="{'fa-check': item.id === theButtonId, 'fa-plus': item.id !== theButtonId}"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="item-content">
+        <h3 class="item-name">{{ item.name }}</h3>
+
+        <div class="item-description">
+          <p [class.expanded]="expandedDescriptions[item.id]">
+            {{ expandedDescriptions[item.id] ? item.description : (item.description | slice:0:100) }}
+            <span
+              *ngIf="item.description.length > 100"
+              class="read-more"
+              (click)="toggleDescription(item.id)">
+              {{ expandedDescriptions[item.id] ? 'Read less' : '...Read more' }}
+            </span>
+          </p>
+        </div>
+
+        <div class="item-footer">
+          <span class="item-price">{{ item.price | currency:'USD' }}</span>
+          <div class="item-actions">
+            <button
+              class="quick-add-btn"
+              [ngClass]="{'added': item.id === theButtonId}"
+              [disabled]="item.id === theButtonId"
+              (click)="addItemToCart(item)">
+              <i class="fas" [ngClass]="{'fa-check': item.id === theButtonId, 'fa-cart-plus': item.id !== theButtonId}"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="view-cart-container">
+    <button class="view-cart-btn" routerLink="/CustomerNavigation/MyCart">
+      <i class="fas fa-shopping-cart"></i>
+      View My Cart
+      <span class="cart-badge" *ngIf=" cartCount> 0">{{ cartCount}}</span>
+    </button>
+  </div>
+</div>

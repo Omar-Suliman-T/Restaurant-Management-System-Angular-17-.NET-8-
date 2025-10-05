@@ -1,0 +1,72 @@
+<header>
+  <nav class="customer-navbar">
+    <div class="nav-container">
+      <div class="nav-item home-item" routerLink="/CustomerNavigation/Home">
+        <i class="fas fa-home"></i> Home Page
+      </div>
+
+      <div class="nav-item items-item" routerLink="/CustomerNavigation/CustomerItems">
+        <i class="fas fa-pizza-slice"></i> Items
+      </div>
+
+      <div class="nav-item meals-item" routerLink="/CustomerNavigation/CustomerMeals">
+        <i class="fas fa-hamburger"></i> Meals
+      </div>
+
+      <div class="nav-item cart-item" routerLink="/CustomerNavigation/MyCart">
+        <i class="fas fa-shopping-cart"></i> My Cart
+      </div>
+
+      <div class="nav-item orders-item" routerLink="/CustomerNavigation/OrderDetiales">
+        <i class="fas fa-clipboard-list"></i> My Order
+      </div>
+
+      <div class="nav-item reservation-item" routerLink="/CustomerNavigation/MyReservation">
+        <i class="fa-solid fa-calendar-days"></i> My Reservation
+      </div>
+
+      <div class="nav-item about-link" routerLink="/CustomerNavigation/AboutUs">
+        <i class="fas fa-info-circle"></i> About Us
+      </div>
+
+      <div class="nav-item logout" (click)="LogOut()">
+        <i class="fas fa-sign-out-alt"></i> Log Out
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="page-content">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="customer-footer">
+  <div class="footer-container">
+    <div class="footer-row">
+      <div class="footer-section">
+        <h5>My Restaurant</h5>
+        <p>Your go-to place for delicious meals, fast delivery, and fresh ingredients.</p>
+      </div>
+
+      <div class="footer-section">
+        <h5>Quick Links</h5>
+        <ul class="footer-links">
+          <li><a routerLink="/CustomerNavigation/AboutUs">About Us</a></li>
+          <li><a routerLink="/CustomerNavigation/CustomerItems">Items</a></li>
+          <li><a routerLink="/CustomerNavigation/CustomerMeals">Meals</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h5>Contact</h5>
+        <p>{{theSentence}}</p>
+        <p>Phone: +962 6 123 4567</p>
+        <p>Address: Amman, Jordan</p>
+      </div>
+    </div>
+
+    <div class="footer-copyright">
+      &copy; 2025 My Restaurant. All rights reserved.
+    </div>
+    </div>
+</footer>

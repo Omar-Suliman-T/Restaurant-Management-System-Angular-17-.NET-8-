@@ -1,0 +1,64 @@
+<div class="signup-container">
+  <div class="signup-card">
+    <h2 class="text-center mb-4">Create Your Account</h2>
+
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="signup-form">
+      <!-- Success Message -->
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="firstName" class="form-label">First Name *</label>
+          <input type="text" id="firstName" class="form-control"
+                 [(ngModel)]="user.firstName" name="firstName" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="lastName" class="form-label">Last Name *</label>
+          <input type="text" id="lastName" class="form-control"
+                 [(ngModel)]="user.lastName" name="lastName" required>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address *</label>
+        <input type="email" id="email" class="form-control"
+               [(ngModel)]="user.email" name="email" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="phone" class="form-label">Phone Number *</label>
+        <input type="tel" id="phone" class="form-control"
+               [(ngModel)]="user.phone" name="phone" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password (min 6 characters) *</label>
+        <input type="password" id="password" class="form-control"
+               [(ngModel)]="user.password" name="password" required>
+      </div>
+
+      <div class="mb-4">
+        <label for="repeatedPassword" class="form-label">Confirm Password *</label>
+        <input type="password" id="repeatedPassword" class="form-control"
+               [(ngModel)]="repeatedPassword" name="repeatedPassword" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 signup-button" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Create Account</span>
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </button>
+
+      <div class="text-center mt-3">
+        <p>Already have an account? <a routerLink="/LogIn" class="text-primary">Log in</a></p>
+      </div>
+    </form>
+  </div>
+</div>

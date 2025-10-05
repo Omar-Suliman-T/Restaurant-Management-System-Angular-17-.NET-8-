@@ -1,0 +1,19 @@
+/* item-form.component.css */
+/* Only item-specific styles that aren't covered by shared-forms.css */
+
+/* Custom styling for ingredients input */
+
+
+/* Additional styling for image preview */
+.image-preview {
+  margin-top: 1rem;
+}
+.image-preview img {
+  max-height: 150px;
+  object-fit: contain;
+}
+
+/* Responsive adjustments specific to item form */
+@media (max-width: 576px) {
+  /* Any mobile-specific overrides */
+}

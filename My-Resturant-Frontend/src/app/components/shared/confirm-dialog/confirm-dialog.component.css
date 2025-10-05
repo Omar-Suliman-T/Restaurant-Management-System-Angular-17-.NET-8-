@@ -1,0 +1,67 @@
+.confirmaion{
+ position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.secoundConfirmation{
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 24px 32px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 90%;
+  width: 400px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+.secoundConfirmation p {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  color: #333;
+}
+.secoundConfirmation div {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+.secoundConfirmation button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out;
+}
+.secoundConfirmation button:first-child {
+  background-color: #4caf50;
+  color: white;
+}
+
+.secoundConfirmation button:first-child:hover {
+  background-color: #45a049;
+}
+
+.secoundConfirmation button:last-child {
+  background-color: #f44336;
+  color: white;
+}
+
+.secoundConfirmation button:last-child:hover {
+  background-color: #d32f2f;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

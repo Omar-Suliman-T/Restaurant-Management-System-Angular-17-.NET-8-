@@ -1,0 +1,141 @@
+/* meal.component.css */
+.container {
+  width: 90%;
+  margin: 1.5rem auto;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+.btn-add {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  background-color: #1cc88a;
+  color: white;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-add:hover {
+  background-color: #17a673;
+  transform: translateY(-1px);
+}
+
+.table-responsive {
+  width: 100%;
+  overflow: hidden;
+}
+
+.category-table {
+  width: 98%;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.85rem;
+  margin: auto;
+}
+
+.category-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  padding: 0.6rem 0.4rem;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.category-table td {
+  padding: 0.5rem 0.4rem;
+  border-bottom: 1px solid #dee2e6;
+  vertical-align: middle;
+}
+
+/* Action column specific styles */
+.category-table th:nth-child(11),
+.category-table td:nth-child(11) {
+  width: 20%; /* Reduced from 25% */
+  min-width: 180px;
+  padding: 0.3rem;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: nowrap;
+  justify-content: center;
+  padding: 0.2rem;
+  height: 76px;
+  margin-left: 8px;
+}
+
+/* Button styles */
+.btn {
+  padding: 1rem 0.8rem;
+  font-size: 0.8rem;
+  min-width: 70px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Rest of your existing CSS remains the same */
+
+/* Center align action header */
+.table-header th:last-child {
+  text-align: center;
+}
+
+@media (max-width: 992px) {
+  .category-table th:nth-child(11),
+  .category-table td:nth-child(11) {
+    width: 22%;
+    min-width: 160px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .actions-cell {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 100px;
+  }
+}
