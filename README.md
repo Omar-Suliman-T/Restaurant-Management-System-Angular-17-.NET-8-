@@ -48,13 +48,15 @@ Organized architecture with dependency injection and layered design
 
 🧰 How to Run
 
-Backend:
-
-Open the /My-Resturant-API folder in Visual Studio.
-
-Update appsettings.json with your SQL Server connection string.
-
-Run the API (dotnet run or F5).
+1. Open the '/My-Restaurant-API' folder in **Visual Studio**.  
+2. Open **'RestDbContext.cs'** and modify the **seed data** to fit your local setup.  
+3. Run the following commands in the **Package Manager Console** or terminal:
+   dotnet ef migrations add InitialCreate
+   dotnet ef database update
+This will apply migrations and create the database with your seed data.
+4. Update appsettings.json with your SQL Server connection string and update the program.cs with your SQL Server connection.
+5. Run the API using:
+dotnet run
 
 Frontend:
 
@@ -73,4 +75,4 @@ Developed by Omar Tabikh
 
 🔗 LinkedIn Profile : www.linkedin.com/in/omar-suliman-t2000
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+To get more help on the Angular CLI use 'ng help' or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
