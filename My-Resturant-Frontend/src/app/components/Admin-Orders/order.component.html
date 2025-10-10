@@ -60,9 +60,12 @@
   </div>
 
   <ng-template #noOrders>
-    <div class="empty-state">
-      <i class="fas fa-clipboard-list empty-icon"></i>
-      <p class="empty-message">No orders found</p>
+    <div class="no-orders-container animated fadeIn">
+      <div class="no-orders-content">
+        <i class="fas fa-clipboard-list no-orders-icon"></i>
+        <h3 class="no-orders-title">No Orders Found</h3>
+        <p class="no-orders-message">There are no orders in your system yet. All orders will appear here once customers start placing orders.</p>
+      </div>
     </div>
   </ng-template>
 

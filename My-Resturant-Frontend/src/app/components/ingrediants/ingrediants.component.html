@@ -70,7 +70,16 @@
   </div>
 
   <ng-template #noIngredients>
-    <div class="alert alert-info">No ingredients found</div>
+    <div class="no-ingredients-container animated fadeIn">
+      <div class="no-ingredients-content">
+        <i class="fas fa-carrot no-ingredients-icon"></i>
+        <h3 class="no-ingredients-title">No Ingredients Found</h3>
+        <p class="no-ingredients-message">There are no ingredients in your inventory yet. Start by adding your first ingredient!</p>
+        <button class="btn btn-add" routerLink="/AdminNavigation/AddIngrediant">
+          <i class="fas fa-plus-circle"></i> Add Your First Ingredient
+        </button>
+      </div>
+    </div>
   </ng-template>
 
   <app-confirm-dialog

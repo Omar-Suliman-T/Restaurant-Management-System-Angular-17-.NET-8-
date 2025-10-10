@@ -11,12 +11,12 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { CategoryFormComponent } from './components/category-form/catefory-form.component';
 import { IngrediantsComponent } from './components/ingrediants/ingrediants.component';
 import { IngrediantFormComponent } from './components/ingrediant-form/ingrediant-form.component';
-import { ItemComponent } from './components/item/item.component';
+import { ItemComponent } from './components/Admin-Items/item.component';
 import { ItemFormComponent } from './components/item-form/item-form.component';
-import { MealComponent } from './components/meal/meal.component';
+import { MealComponent } from './components/Admin-Meals/meal.component';
 import { MealFormComponent } from './components/meal-form/meal-form.component';
 import { MealDetailsComponent } from './components/meal-details/meal-details.component';
-import { OrderComponent } from './components/orders/order.component';
+import { OrderComponent } from './components/Admin-Orders/order.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { single } from 'rxjs';

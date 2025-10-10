@@ -4,7 +4,7 @@
     <p class="page-subtitle">Carefully curated meal combinations for a complete dining experience</p>
   </div>
 
-  <div class="meals-grid">
+  <div *ngIf="meals && meals.length > 0; else noMeals" class="meals-grid">
     <div *ngFor="let meal of meals" class="meal-card" [@cardAnimation]>
       <div class="meal-image-container">
         <img [src]="meal.image || 'assets/placeholder-meal.jpg'" [alt]="meal.name" class="meal-image" />
@@ -51,7 +51,17 @@
     </div>
   </div>
 
-  <div class="view-cart-container">
+  <ng-template #noMeals>
+    <div class="no-meals-container animated fadeIn">
+      <div class="no-meals-content">
+        <i class="fas fa-utensil-spoon no-meals-icon"></i>
+        <h3 class="no-meals-title">No Special Meals Available</h3>
+        <p class="no-meals-message">We're currently preparing new special meal combinations. Check back soon for our curated dining experiences!</p>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="view-cart-container" *ngIf="meals && meals.length > 0">
     <button class="view-cart-btn" routerLink="/CustomerNavigation/MyCart">
       <i class="fas fa-shopping-cart"></i>
       View My Cart

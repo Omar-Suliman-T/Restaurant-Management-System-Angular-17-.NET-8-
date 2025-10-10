@@ -4,7 +4,7 @@
     <p class="page-subtitle">Discover our delicious selection of food items</p>
   </div>
 
-  <div class="items-grid">
+  <div *ngIf="items && items.length > 0; else noItems" class="items-grid">
     <div *ngFor="let item of items" class="item-card" [@cardAnimation]>
       <div class="item-image-container">
         <img [src]="item.image || 'assets/placeholder-food.jpg'" [alt]="item.name" class="item-image" />
@@ -51,11 +51,21 @@
     </div>
   </div>
 
-  <div class="view-cart-container">
+  <ng-template #noItems>
+    <div class="no-items-container animated fadeIn">
+      <div class="no-items-content">
+        <i class="fas fa-utensils no-items-icon"></i>
+        <h3 class="no-items-title">No Menu Items Available</h3>
+        <p class="no-items-message">We're currently updating our menu. Please check back later for delicious offerings!</p>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="view-cart-container" *ngIf="items && items.length > 0">
     <button class="view-cart-btn" routerLink="/CustomerNavigation/MyCart">
       <i class="fas fa-shopping-cart"></i>
       View My Cart
-      <span class="cart-badge" *ngIf=" cartCount> 0">{{ cartCount}}</span>
+      <span class="cart-badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
     </button>
   </div>
 </div>

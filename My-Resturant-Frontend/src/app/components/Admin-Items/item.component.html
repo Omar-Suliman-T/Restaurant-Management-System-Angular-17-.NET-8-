@@ -76,7 +76,16 @@
   </div>
 
   <ng-template #noItems>
-    <div class="alert alert-info">No items found</div>
+    <div class="no-items-container animated fadeIn">
+      <div class="no-items-content">
+        <i class="fas fa-box-open no-items-icon"></i>
+        <h3 class="no-items-title">No Items Found</h3>
+        <p class="no-items-message">There are no items in your inventory yet. Start by adding your first item!</p>
+        <button class="btn btn-add" routerLink="/AdminNavigation/AddItem">
+          <i class="fas fa-plus-circle"></i> Add Your First Item
+        </button>
+      </div>
+    </div>
   </ng-template>
 
   <app-confirm-dialog

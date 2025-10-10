@@ -21,7 +21,7 @@
             <th>Status</th>
             <th>Last Modified</th>
             <th>Image</th>
-            <th st>Actions</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -79,7 +79,16 @@
   </div>
 
   <ng-template #noMeals>
-    <div class="alert alert-info">No meals found</div>
+    <div class="no-meals-container animated fadeIn">
+      <div class="no-meals-content">
+        <i class="fas fa-utensils no-meals-icon"></i>
+        <h3 class="no-meals-title">No Meals Found</h3>
+        <p class="no-meals-message">There are no meals in your menu yet. Start by adding your first meal!</p>
+        <button class="btn btn-add" routerLink="/AdminNavigation/AddMeal">
+          <i class="fas fa-plus-circle"></i> Add Your First Meal
+        </button>
+      </div>
+    </div>
   </ng-template>
 
   <app-confirm-dialog

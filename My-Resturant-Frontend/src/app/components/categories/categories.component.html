@@ -57,7 +57,16 @@
   </div>
 
   <ng-template #noCategories>
-    <div class="alert alert-info">No categories found</div>
+    <div class="no-categories-container animated fadeIn">
+      <div class="no-categories-content">
+        <i class="fas fa-tags no-categories-icon"></i>
+        <h3 class="no-categories-title">No Categories Found</h3>
+        <p class="no-categories-message">There are no categories in your system yet. Start by adding your first category!</p>
+        <button class="btn btn-add" routerLink="/AdminNavigation/AddCategory">
+          <i class="fas fa-plus-circle"></i> Add Your First Category
+        </button>
+      </div>
+    </div>
   </ng-template>
 
   <app-confirm-dialog

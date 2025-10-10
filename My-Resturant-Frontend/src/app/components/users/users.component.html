@@ -54,7 +54,16 @@
   </div>
 
   <ng-template #noUsers>
-    <div class="alert alert-info">No users found</div>
+    <div class="no-users-container animated fadeIn">
+      <div class="no-users-content">
+        <i class="fas fa-users no-users-icon"></i>
+        <h3 class="no-users-title">No Users Found</h3>
+        <p class="no-users-message">There are no users in your system yet. Start by adding your first user!</p>
+        <button class="btn btn-add" routerLink="/AdminNavigation/AddUser">
+          <i class="fas fa-user-plus"></i> Add Your First User
+        </button>
+      </div>
+    </div>
   </ng-template>
 
   <app-confirm-dialog
