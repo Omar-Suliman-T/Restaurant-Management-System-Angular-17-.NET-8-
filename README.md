@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white" />
 
   <!-- Backend -->
-  <img src="https://img.shields.io/badge/Backend-.NET%208.0-512BD4?logo=dotnet&logoColor=white" />
+  <img src="https://img.shields.io/badge/Backend-.NET%208.0-512BD4" />
   <img src="https://img.shields.io/badge/ORM-EF%20Core-6DB33F" />
   <img src="https://img.shields.io/badge/Auth-JWT-orange?logo=jsonwebtokens&logoColor=white" />
   <img src="https://img.shields.io/badge/Email-MailKit-0078D4" />
@@ -38,8 +38,8 @@
 
 ## 🧩 Project Structure
 
-/My-Restaurant-Frontend   -> Angular 17 frontend
-/My-Restaurant-API        -> ASP.NET Core 8 backend
+/My-Restaurant-Frontend   -> Angular 17 frontend <br>
+/My-Restaurant-API        -> ASP.NET Core 8 backend <br>
 ---
 ## 🧰 How to Run
 Backend (ASP.NET Core)
