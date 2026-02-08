@@ -1,78 +1,83 @@
-## Technologies Used
+<p align="center">
+  <h1 align="center">🍽️ My Restaurant</h1>
+  <p align="center">Full-Stack Restaurant Management System</p>
+</p>
 
-Frontend:
+<p align="center">
+  <!-- Frontend -->
+  <img src="https://img.shields.io/badge/Frontend-Angular%2017.3.11-DD0031?logo=angular&logoColor=white" />
+  <img src="https://img.shields.io/badge/Language-TypeScript-3178C6?logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white" />
 
-Angular 17.3.11
+  <!-- Backend -->
+  <img src="https://img.shields.io/badge/Backend-.NET%208.0-512BD4?logo=dotnet&logoColor=white" />
+  <img src="https://img.shields.io/badge/ORM-EF%20Core-6DB33F" />
+  <img src="https://img.shields.io/badge/Auth-JWT-orange?logo=jsonwebtokens&logoColor=white" />
+  <img src="https://img.shields.io/badge/Email-MailKit-0078D4" />
+  <img src="https://img.shields.io/badge/Database-SQL%20Server-0078D4?logo=microsoftsqlserver&logoColor=white" />
 
-TypeScript, HTML, CSS
+  <!-- Tools -->
+  <img src="https://img.shields.io/badge/IDE-VS%20%26%20VS%20Code-007ACC?logo=visualstudiocode&logoColor=white" />
+  <img src="https://img.shields.io/badge/Git-Git-F05032?logo=git&logoColor=white" />
+  <img src="https://img.shields.io/badge/API%20Testing-Postman-FF6C37?logo=postman&logoColor=white" />
+</p>
 
-Responsive UI with modern layout & components
+---
 
-Backend:
+## 🚀 Features
 
-ASP.NET Core 8.0 (Web API)
+- 🔐 User authentication & authorization with **JWT**
+- 📱 Responsive UI compatible with all screen sizes
+- CRUD operations for **menu items, orders, and users**
+- 📧 Email notifications using **MailKit**
+- 🔒 Secure data access with **Entity Framework Core**
+- 🏗️ Clean architecture with **dependency injection and layered design**
 
-Entity Framework Core (Code First)
+---
 
-MailKit (for sending emails & notifications)
+## 🧩 Project Structure
 
-JWT Authentication (for secure login)
+/My-Restaurant-Frontend   -> Angular 17 frontend
+/My-Restaurant-API        -> ASP.NET Core 8 backend
+---
+## 🧰 How to Run
+Backend (ASP.NET Core)
 
-SQL Server Database
+1. Open the /My-Restaurant-API folder in Visual Studio.
 
-Other Tools:
+2. Update RestDbContext.cs seed data for your local setup.
 
-Visual Studio & VS Code
+3.Run migrations:
+```
+  dotnet ef migrations add InitialCreate
+  dotnet ef database update
+```
 
-Git & GitHub
+4. Update appsettings.json with your SQL Server connection string.
 
-Postman for API testing
+5. Run the API:
+ ```
+   dotnet run
+```
+Frontend (Angular)
 
-🚀 Features
+1. Open /My-Restaurant-Frontend in VS Code.
 
-User authentication & authorization using JWT tokens
+2. Install dependencies:
+```
+npm install
+```
 
-Responsive UI compatible with all screen sizes
+3. Run the app:
+```
+ng serve
+```
 
-CRUD operations for menu items, orders, and users
-
-Email notifications using MailKit
-
-Secure data access with Entity Framework
-
-Organized architecture with dependency injection and layered design
-
-🧩 Project Structure
-/My-Restruant-Frontend  -> Angular 17 frontend  
-/My-Resturant-API    -> ASP.NET Core 8 backend  
-
-🧰 How to Run
-
-1. Open the '/My-Restaurant-API' folder in **Visual Studio**.  
-2. Open **'RestDbContext.cs'** and modify the **seed data** to fit your local setup.  
-3. Run the following commands in the **Package Manager Console** or terminal:
-   dotnet ef migrations add InitialCreate
-   dotnet ef database update
-This will apply migrations and create the database with your seed data.
-4. Update appsettings.json with your SQL Server connection string and update the program.cs with your SQL Server connection.
-5. Run the API using:
-dotnet run
-
-Frontend:
-
-Open the /My-Restruant-Frontend folder in VS Code.
-
-Install dependencies: npm install
-
-Run the app: ng serve
-
-Navigate to: http://localhost:4200
-
-📧 Contact
+4. Navigate to: http://localhost:4200
+## 📧 Contact
 
 Developed by Omar Tabikh
-📩 omarsit20004031@gmail.com
+📩 Email: omar.suliman.tabikh@gmail.com
 
-🔗 LinkedIn Profile : www.linkedin.com/in/omar-suliman-t2000
-
-To get more help on the Angular CLI use 'ng help' or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+🔗 LinkedIn: linkedin.com/in/omar-suliman-t2000
